@@ -4814,7 +4814,7 @@ S2.define('select2/defaults',[
       return text.replace(/[^\u0000-\u007E]/g, match);
     }
 
-    function matcher (params, data) {
+    function matcher(params, data) {
       // Always return the object if there is nothing to compare
       if ($.trim(params.term) === '') {
         return data;
@@ -4847,11 +4847,20 @@ S2.define('select2/defaults',[
         return matcher(params, match);
       }
 
-      var original = stripDiacritics(data.text).toUpperCase();
+      var original = '';
+      var original1 = '';
       var term = stripDiacritics(params.term).toUpperCase();
+      if (stripDiacritics(data.text).toPinYin != undefined) {
+        var result = stripDiacritics(data.text).toPinYin();
+        original = result[0].indexOf(stripDiacritics(params.term).toUpperCase());
+        original1 = result[1].indexOf(stripDiacritics(params.term).toUpperCase());
+        if (original == -1 && original1 == -1) {
+          original = stripDiacritics(data.text).toUpperCase().indexOf(term);
+        }
+      }
 
       // Check if the text contains the term
-      if (original.indexOf(term) > -1) {
+      if (original > -1 || original1 > -1) {//如果匹配则original为0
         return data;
       }
 
