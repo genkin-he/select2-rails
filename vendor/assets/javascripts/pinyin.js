@@ -421,6 +421,10 @@
       }
 
     }
+    if (I1[0] == undefined) {
+      window.console.log(I1);
+      return I1;
+    }
     I1[0] = I1[0].replace(/ /g, '-');
     I1[1] = I1[1].replace(/ /g, '-');
     while (I1[0].indexOf('--') > 0) {
