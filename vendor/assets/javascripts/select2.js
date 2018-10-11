@@ -4847,6 +4847,10 @@ S2.define('select2/defaults',[
         return matcher(params, match);
       }
 
+      if (data.text == "" || data.id == "") {
+        return data;
+      }
+
       var original = '';
       var original1 = '';
       var term = stripDiacritics(params.term).toUpperCase();
